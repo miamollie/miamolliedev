@@ -1,338 +1,741 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>@miamolliedev — Software Engineer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@miamollie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --bg:        #0b1120;
-      --teal:      #82b5aa;
-      --teal-dim:  #5a9088;
-      --teal-deep: #3a6860;
-      --mauve:     #c09090;
-      --mauve-dim: #9a6e6e;
-      --pearl:     #eef3f8;
-      --muted:     #506060;
-      --muted-lt:  #7a9898;
-    }
+      :root {
+        --bg: #0b1120;
+        --teal: #82b5aa;
+        --blue: #629bac;
+        --teal-deep: #3a6860;
+        --mauve: #c09090;
+        --mauve-dim: #9a6e6e;
+        --pearl: #eef3f8;
+        --muted: #506060;
+        --muted-lt: #6d95a1;
+      }
 
-    html, body { height: 100%; overflow: hidden; }
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
 
-    body {
-      background: var(--bg);
-      color: var(--pearl);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-    }
+      body {
+        background: var(--bg);
+        color: var(--pearl);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 300;
+      }
 
-    /* ── Grain ── */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 100; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      opacity: 0.55;
-    }
+      /* ── Grain ── */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        opacity: 0.55;
+      }
 
-    /* ── Ambient blobs ── */
-    .blob { position: fixed; border-radius: 50%; filter: blur(110px); pointer-events: none; z-index: 0; }
-    .blob-mauve { width: 580px; height: 440px; background: rgba(192,144,144,0.1); top: -120px; left: -100px; animation: drift 17s ease-in-out infinite alternate; }
-    .blob-teal  { width: 440px; height: 400px; background: rgba(130,181,170,0.09); bottom: -90px; right: -70px; animation: drift 22s ease-in-out infinite alternate-reverse; }
-    @keyframes drift { from{transform:translate(0,0) scale(1);} to{transform:translate(28px,20px) scale(1.07);} }
+      /* ── Ambient blobs ── */
+      .blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(110px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .blob-mauve {
+        width: 580px;
+        height: 440px;
+        background: rgba(192, 144, 144, 0.1);
+        top: -120px;
+        left: -100px;
+        animation: drift 17s ease-in-out infinite alternate;
+      }
+      .blob-teal {
+        width: 440px;
+        height: 400px;
+        background: rgba(130, 181, 170, 0.09);
+        bottom: -90px;
+        right: -70px;
+        animation: drift 22s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes drift {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(28px, 20px) scale(1.07);
+        }
+      }
 
-    /* ── Shell ── */
-    .shell {
-      position: relative; z-index: 1;
-      width: 100vw; height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      padding: 0 clamp(1.6rem, 5.5vw, 4.5rem);
-    }
+      /* ── Shell ── */
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: 0 clamp(1.6rem, 5.5vw, 4.5rem);
+      }
 
-    /* ── Top bar ── */
-    .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.7rem 0 0.8rem;
-      opacity: 0; animation: up 0.7s 0.05s forwards;
-    }
-    .badge {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--mauve); border: 1px solid rgba(192,144,144,0.3);
-      padding: 0.3em 0.85em; border-radius: 999px;
-    }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mauve); animation: blink 2.4s ease-in-out infinite; }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
-    .say-hi {
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      color: var(--muted-lt); text-decoration: none; letter-spacing: 0.07em; transition: color 0.2s;
-    }
-    .say-hi:hover { color: var(--teal); }
+      /* ── Top bar ── */
+      .topbar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 1.7rem 0 0.8rem;
+        opacity: 0;
+        animation: up 0.7s 0.05s forwards;
+      }
+      .badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mauve);
+        border: 1px solid rgba(192, 144, 144, 0.3);
+        padding: 0.3em 0.85em;
+        border-radius: 999px;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--mauve);
+        animation: blink 2.4s ease-in-out infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+      .say-hi {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--muted-lt);
+        text-decoration: none;
+        letter-spacing: 0.07em;
+        transition: color 0.2s;
+      }
+      .say-hi:hover {
+        color: var(--teal);
+      }
 
-    /* ── Main ── */
-    .main {
-      display: grid;
-      grid-template-columns: 1fr 210px;
-      align-items: center;
-      gap: 2rem;
-    }
+      /* ── Main ── */
+      .main {
+        display: grid;
+        grid-template-columns: 1fr 210px;
+        align-items: center;
+        gap: 2rem;
+      }
 
-    /* Left */
-    .left { display: flex; flex-direction: column; }
+      /* Left */
+      .left {
+        display: flex;
+        flex-direction: column;
+      }
 
-    /* ── Big Playfair headline ── */
-    .handle-wrap { opacity: 0; animation: up 0.85s 0.2s forwards; }
-    .handle {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: clamp(2.6rem, 7.4vw, 6rem);
-      letter-spacing: -0.01em; line-height: 1; white-space: nowrap;
-      color: var(--pearl);
-    }
-    .handle .at {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--mauve);
-    }
+      /* ── Big Playfair headline ── */
+      .handle-wrap {
+        opacity: 0;
+        animation: up 0.85s 0.2s forwards;
+      }
+      .handle {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: clamp(2.6rem, 7.4vw, 6rem);
+        letter-spacing: -0.01em;
+        line-height: 1;
+        white-space: nowrap;
+        color: var(--pearl);
+      }
+      .handle .at {
+        font-style: italic;
+        font-weight: 400;
+        color: var(--mauve);
+      }
 
-    .subtitle {
-      opacity: 0; animation: up 0.85s 0.32s forwards;
-      margin-top: 1.2rem;
-    }
-    .subtitle p {
-      font-size: clamp(0.88rem, 1.3vw, 1.05rem);
-      line-height: 1.72; color: var(--muted-lt); max-width: 500px;
-    }
+      .subtitle {
+        opacity: 0;
+        animation: up 0.85s 0.32s forwards;
+        margin-top: 1.2rem;
+      }
+      .subtitle p {
+        font-size: clamp(0.88rem, 1.3vw, 1.05rem);
+        line-height: 1.72;
+        color: var(--muted-lt);
+        max-width: 500px;
+      }
 
-    .meta-row {
-      opacity: 0; animation: up 0.85s 0.46s forwards;
-      margin-top: 1.8rem;
-      display: flex; align-items: flex-start; gap: 1.6rem; flex-wrap: wrap;
-    }
-    .avatar-block { display: flex; align-items: center; gap: 0.8rem; }
-    .avatar-ring {
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 1.5px solid rgba(192,144,144,0.32);
-      background: rgba(192,144,144,0.07);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 18px rgba(192,144,144,0.1);
-    }
-    .avatar-ring svg { width: 20px; height: 20px; color: var(--mauve); opacity: 0.7; }
-    .avatar-meta { display: flex; flex-direction: column; gap: 0.1rem; }
-    .avatar-name { font-family: 'DM Mono', monospace; font-size: 0.74rem; color: var(--pearl); letter-spacing: 0.04em; }
-    .avatar-sub  { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted-lt); letter-spacing: 0.09em; }
+      .meta-row {
+        opacity: 0;
+        animation: up 0.85s 0.46s forwards;
+        margin-top: 1.8rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.6rem;
+        flex-wrap: wrap;
+      }
+      .avatar-block {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .avatar-ring {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(192, 144, 144, 0.32);
+        background: rgba(192, 144, 144, 0.07);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 18px rgba(192, 144, 144, 0.1);
+        overflow: hidden;
+      }
+      .avatar-ring svg {
+        width: 20px;
+        height: 20px;
+        color: var(--mauve);
+        opacity: 0.7;
+      }
+      .avatar-ring img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%) contrast(0.9) brightness(1.05);
+      }
+      .avatar-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+      .avatar-name {
+        font-family: "DM Mono", monospace;
+        font-size: 0.74rem;
+        color: var(--pearl);
+        letter-spacing: 0.04em;
+      }
+      .avatar-sub {
+        font-family: "DM Mono", monospace;
+        font-size: 0.6rem;
+        color: var(--muted-lt);
+        letter-spacing: 0.09em;
+      }
 
-    .vsep { width: 1px; height: 30px; background: rgba(255,255,255,0.07); align-self: center; }
+      .vsep {
+        width: 1px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.07);
+        align-self: center;
+      }
 
-    .blurb { font-size: 0.86rem; line-height: 1.76; color: var(--muted-lt); max-width: 340px; }
+      .blurb {
+        font-size: 0.86rem;
+        line-height: 1.76;
+        color: var(--muted-lt);
+        max-width: 400px;
+      }
 
-    .chips-row {
-      opacity: 0; animation: up 0.85s 0.6s forwards;
-      margin-top: 1.8rem; display: flex; flex-wrap: wrap; gap: 0.45rem;
-    }
-    .chip {
-      font-family: 'DM Mono', monospace; font-size: 0.67rem; letter-spacing: 0.055em;
-      padding: 0.3em 0.82em; border-radius: 999px; cursor: default; transition: all 0.2s;
-      border: 1px solid rgba(130,181,170,0.22); color: var(--teal-dim); background: rgba(130,181,170,0.05);
-    }
-    .chip:hover { background: rgba(130,181,170,0.14); border-color: rgba(130,181,170,0.5); color: var(--teal); }
-    .chip.m {
-      border-color: rgba(192,144,144,0.22); color: var(--mauve-dim); background: rgba(192,144,144,0.04);
-    }
-    .chip.m:hover { background: rgba(192,144,144,0.13); border-color: rgba(192,144,144,0.5); color: var(--mauve); }
+      .blurb p {
+        margin-bottom: 0.5rem;
+      }
 
-    /* ── Right: Jellyfish ── */
-    .right {
-      opacity: 0; animation: up 0.9s 0.38s forwards;
-      display: flex; flex-direction: column; align-items: center; gap: 0.65rem;
-      position: relative;
-    }
-    .jelly-glow {
-      position: absolute; width: 280px; height: 280px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(130,181,170,0.1) 0%, transparent 70%);
-      top: 50%; left: 50%; transform: translate(-50%, -54%);
-      pointer-events: none; animation: gpulse 4.5s ease-in-out infinite;
-    }
-    @keyframes gpulse { 0%,100%{opacity:0.6;transform:translate(-50%,-54%) scale(1);} 50%{opacity:1;transform:translate(-50%,-54%) scale(1.1);} }
+      .chips-row {
+        opacity: 0;
+        animation: up 0.85s 0.6s forwards;
+        margin-top: 1.8rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+      .chip {
+        font-family: "DM Mono", monospace;
+        font-size: 0.67rem;
+        letter-spacing: 0.055em;
+        padding: 0.3em 0.82em;
+        border-radius: 999px;
+        cursor: default;
+        transition: all 0.2s;
+        border: 1px solid rgba(130, 181, 170, 0.22);
+        color: var(--blue);
+        background: rgba(130, 181, 170, 0.05);
+      }
+      .chip:hover {
+        background: rgba(130, 181, 170, 0.14);
+        border-color: rgba(130, 181, 170, 0.5);
+        color: var(--teal);
+      }
+      .chip.m {
+        border-color: rgba(192, 144, 144, 0.22);
+        color: var(--mauve);
+        background: rgba(192, 144, 144, 0.04);
+      }
+      .chip.m:hover {
+        background: rgba(192, 144, 144, 0.13);
+        border-color: rgba(192, 144, 144, 0.5);
+        color: var(--mauve);
+      }
 
-    .jelly-svg { width: clamp(130px,15vw,195px); filter: drop-shadow(0 0 16px rgba(130,181,170,0.25)); }
+      /* ── Right: Jellyfish ── */
+      .right {
+        opacity: 0;
+        animation: up 0.9s 0.38s forwards;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.65rem;
+        position: relative;
+      }
+      .jelly-glow {
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(130, 181, 170, 0.1) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -54%);
+        pointer-events: none;
+        animation: gpulse 4.5s ease-in-out infinite;
+      }
+      @keyframes gpulse {
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: translate(-50%, -54%) scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -54%) scale(1.1);
+        }
+      }
 
-    .bell { animation: bob 4s ease-in-out infinite; transform-origin: 50% 85%; }
-    @keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+      .jelly-svg {
+        width: clamp(130px, 15vw, 195px);
+        filter: drop-shadow(0 0 16px rgba(130, 181, 170, 0.25));
+      }
 
-    .tentacle { animation: wiggle 3.2s ease-in-out infinite; transform-origin: top center; }
-    .t2{animation-delay:.25s;} .t3{animation-delay:.5s;} .t4{animation-delay:.75s;} .t5{animation-delay:1s;}
-    @keyframes wiggle { 0%,100%{transform:skewX(0deg);} 30%{transform:skewX(5deg);} 70%{transform:skewX(-5deg);} }
+      .bell {
+        animation: bob 4s ease-in-out infinite;
+        transform-origin: 50% 85%;
+      }
+      @keyframes bob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
 
-    .spot { animation: spotblink 5s ease-in-out infinite; }
-    .spot2 { animation-delay: 1.8s; }
-    @keyframes spotblink { 0%,88%,100%{opacity:1;} 93%{opacity:0.2;} }
+      .tentacle {
+        animation: wiggle 3.2s ease-in-out infinite;
+        transform-origin: top center;
+      }
+      .t2 {
+        animation-delay: 0.25s;
+      }
+      .t3 {
+        animation-delay: 0.5s;
+      }
+      .t4 {
+        animation-delay: 0.75s;
+      }
+      .t5 {
+        animation-delay: 1s;
+      }
+      @keyframes wiggle {
+        0%,
+        100% {
+          transform: skewX(0deg);
+        }
+        30% {
+          transform: skewX(5deg);
+        }
+        70% {
+          transform: skewX(-5deg);
+        }
+      }
 
-    .jelly-caption {
-      font-family: 'DM Mono', monospace; font-size: 0.62rem;
-      color: var(--muted-lt); letter-spacing: 0.12em; text-align: center;
-    }
+      .spot {
+        animation: spotblink 5s ease-in-out infinite;
+      }
+      .spot2 {
+        animation-delay: 1.8s;
+      }
+      @keyframes spotblink {
+        0%,
+        88%,
+        100% {
+          opacity: 1;
+        }
+        93% {
+          opacity: 0.2;
+        }
+      }
 
-    /* ── Footer ── */
-    footer {
-      opacity: 0; animation: up 0.8s 0.78s forwards;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.9rem 0 1.6rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .footer-copy {
-      font-family: 'DM Mono', monospace; font-size: 0.64rem;
-      color: var(--muted-lt); letter-spacing: 0.07em;
-    }
-    .footer-links { display: flex; gap: 1.4rem; }
-    .footer-link {
-      display: flex; align-items: center; gap: 0.4rem;
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      letter-spacing: 0.08em; color: var(--muted-lt);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .footer-link:hover { color: var(--mauve); }
-    .footer-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+      .jelly-caption {
+        font-family: "DM Mono", monospace;
+        font-size: 0.62rem;
+        color: var(--muted-lt);
+        letter-spacing: 0.12em;
+        text-align: center;
+      }
 
-    @keyframes up { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:translateY(0);} }
+      /* ── Footer ── */
+      footer {
+        opacity: 0;
+        animation: up 0.8s 0.78s forwards;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.9rem 0 1.6rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .footer-copy {
+        font-family: "DM Mono", monospace;
+        font-size: 0.64rem;
+        color: var(--muted-lt);
+        letter-spacing: 0.07em;
+      }
+      .footer-links {
+        display: flex;
+        gap: 1.4rem;
+      }
+      .footer-link {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--muted-lt);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-link:hover {
+        color: var(--mauve);
+      }
+      .footer-link svg {
+        width: 13px;
+        height: 13px;
+        flex-shrink: 0;
+      }
 
-    /* ── Mobile ── */
-    @media (max-width: 680px) {
-      html, body { overflow: auto; height: auto; }
-      .shell { height: auto; padding: 0 1.4rem; }
-      .main { grid-template-columns: 1fr; }
-      .right { order: -1; padding-top: 1.5rem; }
-      .handle { font-size: clamp(2rem, 10vw, 3.2rem); white-space: normal; }
-      .vsep { display: none; }
-      footer { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-    }
-  </style>
-</head>
-<body>
+      @keyframes up {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-<div class="blob blob-mauve"></div>
-<div class="blob blob-teal"></div>
+      /* ── Mobile ── */
+      @media (max-width: 680px) {
+        html,
+        body {
+          overflow: auto;
+          height: auto;
+        }
+        .shell {
+          height: auto;
+          padding: 0 1.4rem;
+        }
+        .main {
+          grid-template-columns: 1fr;
+        }
+        .right {
+          order: -1;
+          padding-top: 1.5rem;
+        }
+        .handle {
+          font-size: clamp(2rem, 10vw, 3.2rem);
+          white-space: normal;
+        }
+        .vsep {
+          display: none;
+        }
+        footer {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob blob-mauve"></div>
+    <div class="blob blob-teal"></div>
 
-<div class="shell">
+    <div class="shell">
+      <header class="topbar">
+        <a href="mailto:miamollie+websitecontact@gmail.com" class="say-hi"
+          >say hello →</a
+        >
+      </header>
 
-  <header class="topbar">
-    <div class="badge"><span class="dot"></span>Software Engineer</div>
-    <a href="mailto:hello@miamollie.dev" class="say-hi">say hello →</a>
-  </header>
-
-  <main class="main">
-
-    <div class="left">
-
-      <div class="handle-wrap">
-        <div class="handle"><span class="at">@</span>miamolliedev</div>
-      </div>
-
-      <div class="subtitle">
-        <p>Building thoughtful software with a calm eye for systems, sharp product instincts, and a bias toward clean delivery.</p>
-      </div>
-
-      <div class="meta-row">
-        <div class="avatar-block">
-          <div class="avatar-ring">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-            </svg>
+      <main class="main">
+        <div class="left">
+          <div class="handle-wrap">
+            <div class="handle"><span class="at">@</span>miamollie</div>
           </div>
-          <div class="avatar-meta">
-            <span class="avatar-name">Mia Mollie</span>
-            <span class="avatar-sub">your photo here</span>
+
+          <div class="subtitle">
+            <p>
+              Building things people love, growing people who love to build.
+            </p>
+          </div>
+
+          <div class="meta-row">
+            <div class="avatar-block">
+              <div class="avatar-ring">
+                <img src="avatar.jpeg" alt="Mia de Búrca" />
+              </div>
+              <div class="avatar-meta">
+                <span class="avatar-name">Mia de Búrca</span>
+                <span class="avatar-sub">@miamollie</span>
+              </div>
+            </div>
+            <div class="vsep"></div>
+            <div class="blurb">
+              <p>
+                Mia de Búrca is an Irish software engineer based in Melbourne.
+              </p>
+              <p>
+                Her early interest in natural language and linguistics
+                unexpectedly transformed into a career in programming.
+              </p>
+              <p>
+                Mia's passion lies in creating empathetic and empowering
+                workplaces, bringing a fun twist to technical writing, and
+                crafting software solutions with real users in mind.
+              </p>
+
+              <p>
+                Recently, Mia has been delving into sustainable software
+                practices.
+              </p>
+            </div>
+          </div>
+
+          <div class="chips-row">
+            <span class="chip">TypeScript</span>
+            <span class="chip">React</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">Golang</span>
+            <span class="chip m">Green Software</span>
+            <span class="chip m">Mentoring</span>
+            <span class="chip m">Tech Writing</span>
           </div>
         </div>
-        <div class="vsep"></div>
-        <p class="blurb">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula nulla at nisl facilisis — currently shipping calm, iterative things into the world.</p>
-      </div>
 
-      <div class="chips-row">
-        <span class="chip">TypeScript</span>
-        <span class="chip">React</span>
-        <span class="chip">Node.js</span>
-        <span class="chip">Go</span>
-        <span class="chip">GraphQL</span>
-        <span class="chip m">Design Systems</span>
-        <span class="chip m">Accessibility</span>
-        <span class="chip m">Creative Coding</span>
-      </div>
+        <!-- Jellyfish -->
+        <div class="right">
+          <div class="jelly-glow"></div>
+          <svg
+            class="jelly-svg"
+            viewBox="0 0 140 170"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+          >
+            <ellipse
+              cx="70"
+              cy="83"
+              rx="44"
+              ry="9"
+              fill="rgba(130,181,170,0.06)"
+            />
+            <g class="bell">
+              <path
+                d="M26 72 Q26 28 70 22 Q114 28 114 72 Q114 95 70 99 Q26 95 26 72Z"
+                fill="url(#bellG)"
+                stroke="rgba(130,181,170,0.3)"
+                stroke-width="1.2"
+              />
+              <path
+                d="M40 64 Q40 36 70 30 Q100 36 100 64 Q100 79 70 81 Q40 79 40 64Z"
+                fill="url(#domeG)"
+                opacity="0.4"
+              />
+              <!-- mauve cheek blushes -->
+              <ellipse
+                class="spot"
+                cx="50"
+                cy="71"
+                rx="7.5"
+                ry="5.5"
+                fill="rgba(192,144,144,0.32)"
+              />
+              <ellipse
+                class="spot spot2"
+                cx="90"
+                cy="71"
+                rx="7.5"
+                ry="5.5"
+                fill="rgba(192,144,144,0.32)"
+              />
+              <!-- eyes -->
+              <ellipse
+                cx="59"
+                cy="59"
+                rx="4.5"
+                ry="5"
+                fill="rgba(8,14,28,0.75)"
+              />
+              <ellipse
+                cx="81"
+                cy="59"
+                rx="4.5"
+                ry="5"
+                fill="rgba(8,14,28,0.75)"
+              />
+              <circle cx="60.8" cy="57" r="1.6" fill="white" opacity="0.9" />
+              <circle cx="82.8" cy="57" r="1.6" fill="white" opacity="0.9" />
+              <!-- smile -->
+              <path
+                d="M63 67.5 Q70 73.5 77 67.5"
+                stroke="rgba(8,14,28,0.5)"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                fill="none"
+              />
+              <!-- hem ruffle in teal -->
+              <path
+                d="M26 72 Q35 85 44 78 Q53 85 62 78 Q70 85 70 78 Q70 85 78 78 Q87 85 96 78 Q105 85 114 72"
+                stroke="rgba(130,181,170,0.45)"
+                stroke-width="1.3"
+                fill="none"
+                stroke-linecap="round"
+              />
+            </g>
+            <!-- tentacles -->
+            <g class="bell">
+              <path
+                class="tentacle"
+                d="M43 91 Q37 110 44 124 Q49 137 43 150"
+                stroke="url(#tentG)"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <path
+                class="tentacle t2"
+                d="M55 95 Q49 115 56 129 Q61 141 55 154"
+                stroke="url(#tentG)"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                opacity="0.78"
+              />
+              <path
+                class="tentacle t3"
+                d="M70 97 Q70 117 70 131 Q69 143 68 157"
+                stroke="url(#tentG)"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <path
+                class="tentacle t4"
+                d="M85 95 Q91 115 84 129 Q79 141 85 154"
+                stroke="url(#tentG)"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                opacity="0.78"
+              />
+              <path
+                class="tentacle t5"
+                d="M97 91 Q103 110 96 124 Q91 137 97 150"
+                stroke="url(#tentG)"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+            </g>
+            <defs>
+              <radialGradient id="bellG" cx="50%" cy="32%" r="62%">
+                <stop offset="0%" stop-color="#c09090" stop-opacity="0.28" />
+                <stop offset="50%" stop-color="#82b5aa" stop-opacity="0.2" />
+                <stop offset="100%" stop-color="#629bac" stop-opacity="0.05" />
+              </radialGradient>
+              <radialGradient id="domeG" cx="50%" cy="28%" r="60%">
+                <stop offset="0%" stop-color="white" stop-opacity="0.18" />
+                <stop offset="100%" stop-color="white" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="tentG" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#82b5aa" stop-opacity="0.75" />
+                <stop offset="100%" stop-color="#82b5aa" stop-opacity="0.04" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </main>
 
+      <footer>
+        <span class="footer-copy"
+          >© 2026 Mia de Búrca — writing, mentoring, building.</span
+        >
+        <div class="footer-links">
+          <a
+            href="https://medium.com/@miamolliedev"
+            class="footer-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"
+              />
+            </svg>
+            Medium
+          </a>
+          <a
+            href="https://linkedin.com/in/miamolliedev"
+            class="footer-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </footer>
     </div>
-
-    <!-- Jellyfish -->
-    <div class="right">
-      <div class="jelly-glow"></div>
-      <svg class="jelly-svg" viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <ellipse cx="70" cy="83" rx="44" ry="9" fill="rgba(130,181,170,0.06)"/>
-        <g class="bell">
-          <path d="M26 72 Q26 28 70 22 Q114 28 114 72 Q114 95 70 99 Q26 95 26 72Z"
-                fill="url(#bellG)" stroke="rgba(130,181,170,0.3)" stroke-width="1.2"/>
-          <path d="M40 64 Q40 36 70 30 Q100 36 100 64 Q100 79 70 81 Q40 79 40 64Z"
-                fill="url(#domeG)" opacity="0.4"/>
-          <!-- mauve cheek blushes -->
-          <ellipse class="spot"  cx="50" cy="71" rx="7.5" ry="5.5" fill="rgba(192,144,144,0.32)"/>
-          <ellipse class="spot spot2" cx="90" cy="71" rx="7.5" ry="5.5" fill="rgba(192,144,144,0.32)"/>
-          <!-- eyes -->
-          <ellipse cx="59" cy="59" rx="4.5" ry="5" fill="rgba(8,14,28,0.75)"/>
-          <ellipse cx="81" cy="59" rx="4.5" ry="5" fill="rgba(8,14,28,0.75)"/>
-          <circle cx="60.8" cy="57" r="1.6" fill="white" opacity="0.9"/>
-          <circle cx="82.8" cy="57" r="1.6" fill="white" opacity="0.9"/>
-          <!-- smile -->
-          <path d="M63 67.5 Q70 73.5 77 67.5" stroke="rgba(8,14,28,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <!-- hem ruffle in teal -->
-          <path d="M26 72 Q35 85 44 78 Q53 85 62 78 Q70 85 70 78 Q70 85 78 78 Q87 85 96 78 Q105 85 114 72"
-                stroke="rgba(130,181,170,0.45)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-        </g>
-        <!-- tentacles -->
-        <g class="bell">
-          <path class="tentacle"    d="M43 91 Q37 110 44 124 Q49 137 43 150" stroke="url(#tentG)" stroke-width="2.2" stroke-linecap="round"/>
-          <path class="tentacle t2" d="M55 95 Q49 115 56 129 Q61 141 55 154" stroke="url(#tentG)" stroke-width="1.7" stroke-linecap="round" opacity="0.78"/>
-          <path class="tentacle t3" d="M70 97 Q70 117 70 131 Q69 143 68 157" stroke="url(#tentG)" stroke-width="2.2" stroke-linecap="round"/>
-          <path class="tentacle t4" d="M85 95 Q91 115 84 129 Q79 141 85 154" stroke="url(#tentG)" stroke-width="1.7" stroke-linecap="round" opacity="0.78"/>
-          <path class="tentacle t5" d="M97 91 Q103 110 96 124 Q91 137 97 150" stroke="url(#tentG)" stroke-width="2.2" stroke-linecap="round"/>
-        </g>
-        <defs>
-          <radialGradient id="bellG" cx="50%" cy="32%" r="62%">
-            <stop offset="0%"   stop-color="#c09090" stop-opacity="0.28"/>
-            <stop offset="50%"  stop-color="#82b5aa" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#3a6860" stop-opacity="0.05"/>
-          </radialGradient>
-          <radialGradient id="domeG" cx="50%" cy="28%" r="60%">
-            <stop offset="0%"  stop-color="white" stop-opacity="0.18"/>
-            <stop offset="100%" stop-color="white" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="tentG" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stop-color="#82b5aa" stop-opacity="0.75"/>
-            <stop offset="100%" stop-color="#82b5aa" stop-opacity="0.04"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <span class="jelly-caption">☁ floatin' through code</span>
-    </div>
-
-  </main>
-
-  <footer>
-    <span class="footer-copy">© 2026 @miamolliedev — writing, building, shipping.</span>
-    <div class="footer-links">
-      <a href="https://medium.com/@miamolliedev" class="footer-link" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
-        Medium
-      </a>
-      <a href="https://linkedin.com/in/miamolliedev" class="footer-link" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-    </div>
-  </footer>
-
-</div>
-</body>
+  </body>
 </html>
