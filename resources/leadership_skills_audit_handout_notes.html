@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Skills Audit — miamollie dev</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --bg: #ffffff;
+    --accent: #1a1a1a;
+    --accent-light: #f0f0f0;
+    --mid: #555555;
+    --rule: #cccccc;
+    --early: #f5f5f5;
+    --mid-col: #e8e8e8;
+    --senior: #f0f0f0;
+    --early-accent: #1a1a1a;
+    --mid-accent: #1a1a1a;
+    --senior-accent: #1a1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ccc;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 14mm 14mm 12mm;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Background texture */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Decorative accent bar top */
+  .accent-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 60%, transparent 100%);
+    margin-bottom: 9mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 7mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 11pt;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .header-tag {
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: var(--mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2pt;
+    line-height: 1;
+  }
+
+  .title-block {
+    flex: 1;
+    padding-left: 12mm;
+  }
+
+  .main-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22pt;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .main-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 8.5pt;
+    color: var(--mid);
+    margin-top: 3pt;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* How to use */
+  .how-to-use {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 5pt 9pt;
+    margin-bottom: 7mm;
+    font-size: 8pt;
+    color: var(--ink);
+    position: relative;
+    z-index: 1;
+    line-height: 1.5;
+  }
+
+  .how-to-use strong {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 2pt;
+  }
+
+  /* Table */
+  .table-wrap {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 6mm;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 7.5pt;
+    line-height: 1.45;
+  }
+
+  /* Column headers */
+  thead tr th {
+    padding: 5pt 7pt;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  thead th:first-child {
+    text-align: left;
+    color: var(--ink);
+    width: 24%;
+    padding-left: 0;
+  }
+
+  .col-early { background: var(--early); color: var(--early-accent); text-align: center; border-radius: 4pt 4pt 0 0; width: 25%; }
+  .col-mid   { background: var(--mid-col); color: var(--mid-accent); text-align: center; border-radius: 4pt 4pt 0 0; width: 25%; }
+  .col-senior{ background: var(--senior); color: var(--senior-accent); text-align: center; border-radius: 4pt 4pt 0 0; width: 26%; }
+
+  .col-early span, .col-mid span, .col-senior span {
+    display: inline-block;
+    border-radius: 20pt;
+    padding: 2pt 8pt;
+    font-size: 6.5pt;
+    letter-spacing: 0.08em;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody td {
+    padding: 6pt 7pt;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  tbody td:first-child {
+    padding-left: 0;
+    padding-right: 8pt;
+  }
+
+  .skill-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 8.5pt;
+    color: var(--ink);
+    margin-bottom: 1.5pt;
+    line-height: 1.2;
+  }
+
+  .skill-desc {
+    font-size: 6.5pt;
+    color: var(--mid);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.3;
+  }
+
+  .cell-early { background: var(--early); }
+  .cell-mid   { background: var(--mid-col); }
+  .cell-senior{ background: var(--senior); }
+
+  tbody td.cell-early,
+  tbody td.cell-mid,
+  tbody td.cell-senior {
+    font-size: 7.5pt;
+    line-height: 1.4;
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  /* Divider rule */
+  .rule {
+    border: none;
+    border-top: 1.5px solid var(--rule);
+    margin: 5mm 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Bottom section */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 80pt;
+    gap: 6mm;
+    position: relative;
+    z-index: 1;
+    align-items: start;
+  }
+
+  .audit-box h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 9.5pt;
+    margin-bottom: 5pt;
+    color: var(--ink);
+  }
+
+  .audit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4pt;
+  }
+
+  .audit-list li {
+    font-size: 7.5pt;
+    font-weight: 300;
+    color: var(--ink);
+    padding-left: 12pt;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .audit-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--ink);
+    font-size: 7pt;
+    top: 1pt;
+  }
+
+  .keep-going-box {
+    padding-left: 6mm;
+    border-left: 1.5px solid var(--rule);
+  }
+
+  .keep-going-text {
+    font-size: 7.5pt;
+    color: var(--mid);
+    font-weight: 300;
+    line-height: 1.55;
+  }
+
+  .keep-going-text strong {
+    display: block;
+    font-family: 'DM Serif Display', serif;
+    font-size: 9pt;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 3pt;
+    font-style: italic;
+  }
+
+  /* QR Code area */
+  .qr-box {
+    border: 1.5px dashed var(--rule);
+    border-radius: 6pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8pt;
+    gap: 4pt;
+    min-height: 80pt;
+  }
+
+  .qr-placeholder {
+    width: 52pt;
+    height: 52pt;
+    border: 1.5px solid var(--rule);
+    border-radius: 3pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* QR pattern decoration */
+  .qr-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 4pt;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 6pt 6pt;
+    opacity: 0.5;
+  }
+
+  .qr-placeholder::after {
+    content: '';
+    position: absolute;
+    width: 16pt;
+    height: 16pt;
+    border: 3pt solid var(--rule);
+    top: 4pt;
+    left: 4pt;
+    z-index: 1;
+  }
+
+  .qr-corners {
+    position: absolute;
+    width: 10pt;
+    height: 10pt;
+    border: 2pt solid var(--rule);
+    bottom: 4pt;
+    right: 4pt;
+    z-index: 1;
+  }
+
+  .qr-label {
+    font-size: 6pt;
+    color: var(--mid);
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5mm;
+    padding-top: 4mm;
+    border-top: 1px solid var(--rule);
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 9pt;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .footer-note {
+    font-size: 6.5pt;
+    color: var(--mid);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  /* Notes section */
+  .notes-section {
+    position: relative;
+    z-index: 1;
+    margin-top: 2mm;
+  }
+
+  .notes-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8pt;
+    margin-bottom: 5pt;
+  }
+
+  .notes-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 9.5pt;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .notes-prompt {
+    font-size: 7pt;
+    color: var(--mid);
+    font-weight: 300;
+  }
+
+  .notes-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .note-line {
+    height: 22pt;
+    border-bottom: 1px solid var(--rule);
+    width: 100%;
+  }
+
+  @media print {
+    body { background: none; padding: 0; }
+    .page { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="accent-bar"></div>
+
+  <div class="header">
+    <div>
+      <div class="brand">@miamollie</div>
+      <div class="header-tag">Workshop Resource</div>
+    </div>
+    <div class="title-block">
+      <div class="main-title"><em>Act like a leader</em> – No title required.</div>
+      <div class="subtitle">Practical actions to build leadership presence at every career stage</div>
+    </div>
+  </div>
+
+  <div class="how-to-use">
+    <strong>How to use this</strong>
+    Pick 1–2 boxes to try this week. Leadership is built through small, visible actions.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th class="col-early"><span>Early</span></th>
+          <th class="col-mid"><span>Mid</span></th>
+          <th class="col-senior"><span>Senior</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="skill-name">Ownership &amp; Initiative</div>
+            <div class="skill-desc">Move things forward without being asked</div>
+          </td>
+          <td class="cell-early">Ask: "Is there anything blocking this?" and take on one small fix without waiting</td>
+          <td class="cell-mid">Identify a recurring problem and propose a simple solution in your team channel</td>
+          <td class="cell-senior">Take ownership of a vague problem space and define what success looks like</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="skill-name">Decision-Making &amp; Momentum</div>
+            <div class="skill-desc">Reduce ambiguity and keep things moving</div>
+          </td>
+          <td class="cell-early">When stuck, suggest 1 option and ask for feedback instead of waiting</td>
+          <td class="cell-mid">Present 2–3 options with trade-offs and recommend one</td>
+          <td class="cell-senior">Make a call in ambiguity and clearly communicate why and next steps</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="skill-name">Communication &amp; Influence</div>
+            <div class="skill-desc">Be clear and bring others along</div>
+          </td>
+          <td class="cell-early">Before speaking, clarify your "ask" (question, decision, or update)</td>
+          <td class="cell-mid">Tailor your message to your audience (tech vs non-tech) in meetings</td>
+          <td class="cell-senior">Align stakeholders by framing decisions in terms of impact and priorities</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="skill-name">Product &amp; Impact Thinking</div>
+            <div class="skill-desc">Understand why the work matters</div>
+          </td>
+          <td class="cell-early">Ask "Who is this for?" and "What problem are we solving?"</td>
+          <td class="cell-mid">Connect your work to user or business outcomes when giving updates</td>
+          <td class="cell-senior">Challenge work that doesn't clearly tie to impact or strategy</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="skill-name">Elevating Others</div>
+            <div class="skill-desc">Make the team stronger</div>
+          </td>
+          <td class="cell-early">Acknowledge a teammate's contribution in a meeting or chat</td>
+          <td class="cell-mid">Create space by inviting quieter voices into discussions</td>
+          <td class="cell-senior">Actively sponsor someone by advocating for their work in the right rooms</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="skill-name">Self-Leadership &amp; Visibility</div>
+            <div class="skill-desc">Make your work and growth visible</div>
+          </td>
+          <td class="cell-early">Share a weekly update on what you've learned or shipped</td>
+          <td class="cell-mid">Ask for specific feedback on one skill you're developing</td>
+          <td class="cell-senior">Publicly highlight team wins and articulate your team's impact to leadership</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="rule">
+
+  <div class="bottom-grid">
+    <div class="audit-box">
+      <h3>Quick Self-Audit</h3>
+      <ul class="audit-list">
+        <li>Which area feels easiest right now?</li>
+        <li>Which area are you avoiding?</li>
+        <li>What is one action you will try this week?</li>
+      </ul>
+    </div>
+
+    <div class="keep-going-box">
+      <div class="keep-going-text">
+        <strong>Leadership isn't a promotion — it's a practice.</strong>
+        Every time you take ownership, communicate with clarity, or lift someone else up, you're leading. Start small. Stay consistent. It compounds.
+      </div>
+    </div>
+
+  <hr class="rule">
+
+  <div class="notes-section">
+    <div class="notes-header">
+      <span class="notes-title">My notes</span>
+      <span class="notes-prompt">What will I try this week? What came up for me?</span>
+    </div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">@miamollie</div>
+    <div class="footer-note">Leadership Skills Audit · Act Like a Leader. No Title Required.</div>
+  </div>
+
+</div>
+</body>
+</html>
