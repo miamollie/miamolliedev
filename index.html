@@ -19,15 +19,14 @@
       }
 
       :root {
-        --bg: #0b1120;
-        --teal: #82b5aa;
-        --blue: #629bac;
-        --teal-deep: #3a6860;
-        --mauve: #c09090;
-        --mauve-dim: #9a6e6e;
-        --pearl: #eef3f8;
-        --muted: #506060;
-        --muted-lt: #6d95a1;
+        --bg: #f5efe6;
+        --primary: #6a9aaa;
+        --primary-dim: #4a7888;
+        --accent: #b07a6a;
+        --accent-dim: #8a5a4a;
+        --ink: #2a3540;
+        --ink-mid: #4a5a68;
+        --ink-lt: #7a8e9a;
       }
 
       html,
@@ -38,53 +37,29 @@
 
       body {
         background: var(--bg);
-        color: var(--pearl);
+        color: var(--ink);
         font-family: "DM Sans", sans-serif;
         font-weight: 300;
       }
 
-      /* ── Grain ── */
-      body::after {
+      /* ── Watercolour paper grain ── */
+      body::before {
         content: "";
         position: fixed;
         inset: 0;
-        z-index: 100;
+        z-index: 0;
         pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-        opacity: 0.55;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.045'/%3E%3C/svg%3E");
       }
 
-      /* ── Ambient blobs ── */
-      .blob {
+      /* ── Wave canvas ── */
+      #bg-canvas {
         position: fixed;
-        border-radius: 50%;
-        filter: blur(110px);
-        pointer-events: none;
+        inset: 0;
         z-index: 0;
-      }
-      .blob-mauve {
-        width: 580px;
-        height: 440px;
-        background: rgba(192, 144, 144, 0.1);
-        top: -120px;
-        left: -100px;
-        animation: drift 17s ease-in-out infinite alternate;
-      }
-      .blob-teal {
-        width: 440px;
-        height: 400px;
-        background: rgba(130, 181, 170, 0.09);
-        bottom: -90px;
-        right: -70px;
-        animation: drift 22s ease-in-out infinite alternate-reverse;
-      }
-      @keyframes drift {
-        from {
-          transform: translate(0, 0) scale(1);
-        }
-        to {
-          transform: translate(28px, 20px) scale(1.07);
-        }
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
       }
 
       /* ── Shell ── */
@@ -107,45 +82,16 @@
         opacity: 0;
         animation: up 0.7s 0.05s forwards;
       }
-      .badge {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-family: "DM Mono", monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--mauve);
-        border: 1px solid rgba(192, 144, 144, 0.3);
-        padding: 0.3em 0.85em;
-        border-radius: 999px;
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--mauve);
-        animation: blink 2.4s ease-in-out infinite;
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.25;
-        }
-      }
       .say-hi {
         font-family: "DM Mono", monospace;
         font-size: 0.72rem;
-        color: var(--muted-lt);
+        color: var(--ink-lt);
         text-decoration: none;
         letter-spacing: 0.07em;
         transition: color 0.2s;
       }
       .say-hi:hover {
-        color: var(--teal);
+        color: var(--primary);
       }
 
       /* ── Main ── */
@@ -156,13 +102,12 @@
         gap: 2rem;
       }
 
-      /* Left */
       .left {
         display: flex;
         flex-direction: column;
       }
 
-      /* ── Big Playfair headline ── */
+      /* ── Headline ── */
       .handle-wrap {
         opacity: 0;
         animation: up 0.85s 0.2s forwards;
@@ -174,12 +119,12 @@
         letter-spacing: -0.01em;
         line-height: 1;
         white-space: nowrap;
-        color: var(--pearl);
+        color: var(--ink);
       }
       .handle .at {
         font-style: italic;
         font-weight: 400;
-        color: var(--mauve);
+        color: var(--accent);
       }
 
       .subtitle {
@@ -190,7 +135,7 @@
       .subtitle p {
         font-size: clamp(0.88rem, 1.3vw, 1.05rem);
         line-height: 1.72;
-        color: var(--muted-lt);
+        color: var(--ink-mid);
         max-width: 500px;
       }
 
@@ -212,25 +157,25 @@
         width: 52px;
         height: 52px;
         border-radius: 50%;
-        border: 1.5px solid rgba(192, 144, 144, 0.32);
-        background: rgba(192, 144, 144, 0.07);
+        border: 1.5px solid rgba(106, 154, 170, 0.35);
+        background: rgba(106, 154, 170, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 0 18px rgba(192, 144, 144, 0.1);
+        box-shadow: 0 2px 12px rgba(106, 154, 170, 0.12);
         overflow: hidden;
       }
       .avatar-ring svg {
         width: 20px;
         height: 20px;
-        color: var(--mauve);
-        opacity: 0.7;
+        color: var(--primary);
+        opacity: 0.65;
       }
       .avatar-ring img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: grayscale(100%) contrast(0.9) brightness(1.05);
+        filter: grayscale(100%) contrast(0.88) brightness(1.06);
       }
       .avatar-meta {
         display: flex;
@@ -240,32 +185,34 @@
       .avatar-name {
         font-family: "DM Mono", monospace;
         font-size: 0.74rem;
-        color: var(--pearl);
+        color: var(--ink);
         letter-spacing: 0.04em;
       }
       .avatar-sub {
         font-family: "DM Mono", monospace;
         font-size: 0.6rem;
-        color: var(--muted-lt);
+        color: var(--ink-lt);
         letter-spacing: 0.09em;
       }
 
       .vsep {
         width: 1px;
         height: 30px;
-        background: rgba(255, 255, 255, 0.07);
+        background: rgba(42, 53, 64, 0.12);
         align-self: center;
       }
 
       .blurb {
         font-size: 0.86rem;
         line-height: 1.76;
-        color: var(--muted-lt);
+        color: var(--ink-mid);
         max-width: 400px;
       }
-
       .blurb p {
         margin-bottom: 0.5rem;
+      }
+      .blurb p:last-child {
+        margin-bottom: 0;
       }
 
       .chips-row {
@@ -284,24 +231,24 @@
         border-radius: 999px;
         cursor: default;
         transition: all 0.2s;
-        border: 1px solid rgba(130, 181, 170, 0.22);
-        color: var(--blue);
-        background: rgba(130, 181, 170, 0.05);
+        border: 1px solid rgba(106, 154, 170, 0.3);
+        color: var(--primary-dim);
+        background: rgba(106, 154, 170, 0.07);
       }
       .chip:hover {
-        background: rgba(130, 181, 170, 0.14);
-        border-color: rgba(130, 181, 170, 0.5);
-        color: var(--teal);
+        background: rgba(106, 154, 170, 0.16);
+        border-color: rgba(106, 154, 170, 0.55);
+        color: var(--primary);
       }
       .chip.m {
-        border-color: rgba(192, 144, 144, 0.22);
-        color: var(--mauve);
-        background: rgba(192, 144, 144, 0.04);
+        border-color: rgba(176, 122, 106, 0.28);
+        color: var(--accent-dim);
+        background: rgba(176, 122, 106, 0.06);
       }
       .chip.m:hover {
-        background: rgba(192, 144, 144, 0.13);
-        border-color: rgba(192, 144, 144, 0.5);
-        color: var(--mauve);
+        background: rgba(176, 122, 106, 0.14);
+        border-color: rgba(176, 122, 106, 0.55);
+        color: var(--accent);
       }
 
       /* ── Right: Jellyfish ── */
@@ -316,13 +263,13 @@
       }
       .jelly-glow {
         position: absolute;
-        width: 280px;
-        height: 280px;
+        width: 260px;
+        height: 260px;
         border-radius: 50%;
         background: radial-gradient(
           circle,
-          rgba(130, 181, 170, 0.1) 0%,
-          transparent 70%
+          rgba(106, 154, 170, 0.1) 0%,
+          transparent 68%
         );
         top: 50%;
         left: 50%;
@@ -338,18 +285,18 @@
         }
         50% {
           opacity: 1;
-          transform: translate(-50%, -54%) scale(1.1);
+          transform: translate(-50%, -54%) scale(1.08);
         }
       }
 
       .jelly-svg {
         width: clamp(130px, 15vw, 195px);
-        filter: drop-shadow(0 0 16px rgba(130, 181, 170, 0.25));
+        filter: drop-shadow(0 4px 18px rgba(100, 140, 160, 0.18));
       }
 
       .bell {
         animation: bob 4s ease-in-out infinite;
-        transform-origin: 50% 85%;
+        transform-origin: 50% 50%;
       }
       @keyframes bob {
         0%,
@@ -357,36 +304,42 @@
           transform: translateY(0);
         }
         50% {
-          transform: translateY(-8px);
+          transform: translateY(-9px);
         }
       }
 
       .tentacle {
-        animation: wiggle 3.2s ease-in-out infinite;
+        animation: wiggle 3.4s ease-in-out infinite;
         transform-origin: top center;
       }
       .t2 {
-        animation-delay: 0.25s;
+        animation-delay: 0.2s;
       }
       .t3 {
-        animation-delay: 0.5s;
+        animation-delay: 0.4s;
       }
       .t4 {
-        animation-delay: 0.75s;
+        animation-delay: 0.6s;
       }
       .t5 {
+        animation-delay: 0.8s;
+      }
+      .t6 {
         animation-delay: 1s;
+      }
+      .t7 {
+        animation-delay: 1.2s;
       }
       @keyframes wiggle {
         0%,
         100% {
-          transform: skewX(0deg);
+          transform: skewX(0deg) translateX(0);
         }
-        30% {
-          transform: skewX(5deg);
+        40% {
+          transform: skewX(6deg) translateX(2px);
         }
         70% {
-          transform: skewX(-5deg);
+          transform: skewX(-5deg) translateX(-2px);
         }
       }
 
@@ -407,14 +360,6 @@
         }
       }
 
-      .jelly-caption {
-        font-family: "DM Mono", monospace;
-        font-size: 0.62rem;
-        color: var(--muted-lt);
-        letter-spacing: 0.12em;
-        text-align: center;
-      }
-
       /* ── Footer ── */
       footer {
         opacity: 0;
@@ -423,12 +368,12 @@
         justify-content: space-between;
         align-items: center;
         padding: 0.9rem 0 1.6rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(42, 53, 64, 0.1);
       }
       .footer-copy {
         font-family: "DM Mono", monospace;
         font-size: 0.64rem;
-        color: var(--muted-lt);
+        color: var(--ink-lt);
         letter-spacing: 0.07em;
       }
       .footer-links {
@@ -442,12 +387,12 @@
         font-family: "DM Mono", monospace;
         font-size: 0.72rem;
         letter-spacing: 0.08em;
-        color: var(--muted-lt);
+        color: var(--ink-lt);
         text-decoration: none;
         transition: color 0.2s;
       }
       .footer-link:hover {
-        color: var(--mauve);
+        color: var(--accent);
       }
       .footer-link svg {
         width: 13px;
@@ -466,7 +411,6 @@
         }
       }
 
-      /* ── Mobile ── */
       @media (max-width: 680px) {
         html,
         body {
@@ -500,8 +444,7 @@
     </style>
   </head>
   <body>
-    <div class="blob blob-mauve"></div>
-    <div class="blob blob-teal"></div>
+    <canvas id="bg-canvas"></canvas>
 
     <div class="shell">
       <header class="topbar">
@@ -546,7 +489,6 @@
                 workplaces, bringing a fun twist to technical writing, and
                 crafting software solutions with real users in mind.
               </p>
-
               <p>
                 Recently, Mia has been delving into sustainable software
                 practices.
@@ -565,140 +507,177 @@
           </div>
         </div>
 
-        <!-- Jellyfish -->
+        <!-- Jellyfish — watercolour style, bob only, no hover twirl, no caption -->
         <div class="right">
           <div class="jelly-glow"></div>
           <svg
             class="jelly-svg"
-            viewBox="0 0 140 170"
+            viewBox="0 0 130 190"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
           >
+            <defs>
+              <radialGradient id="bellG" cx="48%" cy="30%" r="60%">
+                <stop offset="0%" stop-color="#c8d8e0" stop-opacity="0.95" />
+                <stop offset="45%" stop-color="#9ab8c8" stop-opacity="0.70" />
+                <stop offset="100%" stop-color="#6a9ab0" stop-opacity="0.25" />
+              </radialGradient>
+              <radialGradient id="domeG" cx="42%" cy="25%" r="55%">
+                <stop offset="0%" stop-color="white" stop-opacity="0.55" />
+                <stop offset="100%" stop-color="white" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="blushG" cx="50%" cy="90%" r="50%">
+                <stop offset="0%" stop-color="#e0c0b8" stop-opacity="0.30" />
+                <stop offset="100%" stop-color="#e0c0b8" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="tentG1" x1="0%" y1="0%" x2="10%" y2="100%">
+                <stop offset="0%" stop-color="#7aaabf" stop-opacity="0.65" />
+                <stop offset="100%" stop-color="#7aaabf" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="tentG2" x1="0%" y1="0%" x2="5%" y2="100%">
+                <stop offset="0%" stop-color="#8ab5c8" stop-opacity="0.50" />
+                <stop offset="100%" stop-color="#8ab5c8" stop-opacity="0" />
+              </linearGradient>
+              <filter
+                id="jellySoft"
+                x="-15%"
+                y="-15%"
+                width="130%"
+                height="130%"
+              >
+                <feGaussianBlur stdDeviation="0.6" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+
             <ellipse
-              cx="70"
-              cy="83"
-              rx="44"
-              ry="9"
-              fill="rgba(130,181,170,0.06)"
+              cx="65"
+              cy="90"
+              rx="35"
+              ry="7"
+              fill="rgba(90,130,155,0.08)"
             />
-            <g class="bell">
+
+            <g class="bell" filter="url(#jellySoft)">
               <path
-                d="M26 72 Q26 28 70 22 Q114 28 114 72 Q114 95 70 99 Q26 95 26 72Z"
+                d="M22 68 Q22 22 65 16 Q108 22 108 68 Q108 92 65 96 Q22 92 22 68Z"
                 fill="url(#bellG)"
-                stroke="rgba(130,181,170,0.3)"
-                stroke-width="1.2"
               />
               <path
-                d="M40 64 Q40 36 70 30 Q100 36 100 64 Q100 79 70 81 Q40 79 40 64Z"
-                fill="url(#domeG)"
-                opacity="0.4"
+                d="M22 68 Q22 92 65 96 Q108 92 108 68 Q90 85 65 87 Q40 85 22 68Z"
+                fill="url(#blushG)"
               />
-              <!-- mauve cheek blushes -->
+              <path
+                d="M36 60 Q36 30 65 24 Q94 30 94 60 Q94 76 65 78 Q36 76 36 60Z"
+                fill="url(#domeG)"
+              />
+              <path
+                d="M22 68 Q22 22 65 16 Q108 22 108 68 Q108 92 65 96 Q22 92 22 68Z"
+                stroke="rgba(100,150,175,0.18)"
+                stroke-width="0.8"
+              />
               <ellipse
                 class="spot"
-                cx="50"
-                cy="71"
-                rx="7.5"
-                ry="5.5"
-                fill="rgba(192,144,144,0.32)"
+                cx="44"
+                cy="68"
+                rx="8"
+                ry="6"
+                fill="rgba(210,160,150,0.28)"
               />
               <ellipse
                 class="spot spot2"
-                cx="90"
-                cy="71"
-                rx="7.5"
-                ry="5.5"
-                fill="rgba(192,144,144,0.32)"
-              />
-              <!-- eyes -->
-              <ellipse
-                cx="59"
-                cy="59"
-                rx="4.5"
-                ry="5"
-                fill="rgba(8,14,28,0.75)"
+                cx="86"
+                cy="68"
+                rx="8"
+                ry="6"
+                fill="rgba(210,160,150,0.28)"
               />
               <ellipse
-                cx="81"
-                cy="59"
-                rx="4.5"
-                ry="5"
-                fill="rgba(8,14,28,0.75)"
+                cx="55"
+                cy="56"
+                rx="4"
+                ry="4.5"
+                fill="rgba(30,42,55,0.78)"
               />
-              <circle cx="60.8" cy="57" r="1.6" fill="white" opacity="0.9" />
-              <circle cx="82.8" cy="57" r="1.6" fill="white" opacity="0.9" />
-              <!-- smile -->
+              <ellipse
+                cx="75"
+                cy="56"
+                rx="4"
+                ry="4.5"
+                fill="rgba(30,42,55,0.78)"
+              />
+              <circle cx="56.5" cy="54.2" r="1.5" fill="white" opacity="0.9" />
+              <circle cx="76.5" cy="54.2" r="1.5" fill="white" opacity="0.9" />
               <path
-                d="M63 67.5 Q70 73.5 77 67.5"
-                stroke="rgba(8,14,28,0.5)"
-                stroke-width="1.8"
+                d="M59 63.5 Q65 69 71 63.5"
+                stroke="rgba(30,42,55,0.45)"
+                stroke-width="1.6"
                 stroke-linecap="round"
                 fill="none"
               />
-              <!-- hem ruffle in teal -->
               <path
-                d="M26 72 Q35 85 44 78 Q53 85 62 78 Q70 85 70 78 Q70 85 78 78 Q87 85 96 78 Q105 85 114 72"
-                stroke="rgba(130,181,170,0.45)"
-                stroke-width="1.3"
+                d="M22 68 Q31 82 40 75 Q49 82 58 75 Q65 82 65 75 Q65 82 72 75 Q81 82 90 75 Q99 82 108 68"
+                stroke="rgba(100,155,178,0.3)"
+                stroke-width="1.1"
                 fill="none"
                 stroke-linecap="round"
               />
             </g>
-            <!-- tentacles -->
+
             <g class="bell">
               <path
                 class="tentacle"
-                d="M43 91 Q37 110 44 124 Q49 137 43 150"
-                stroke="url(#tentG)"
-                stroke-width="2.2"
+                d="M35 88 Q28 112 33 132 Q37 150 30 168 Q26 180 32 190"
+                stroke="url(#tentG1)"
+                stroke-width="1.4"
                 stroke-linecap="round"
               />
               <path
                 class="tentacle t2"
-                d="M55 95 Q49 115 56 129 Q61 141 55 154"
-                stroke="url(#tentG)"
-                stroke-width="1.7"
+                d="M44 92 Q38 118 43 138 Q47 155 41 172"
+                stroke="url(#tentG2)"
+                stroke-width="1.0"
                 stroke-linecap="round"
-                opacity="0.78"
+                opacity="0.8"
               />
               <path
                 class="tentacle t3"
-                d="M70 97 Q70 117 70 131 Q69 143 68 157"
-                stroke="url(#tentG)"
-                stroke-width="2.2"
+                d="M53 94 Q48 122 53 142 Q57 160 52 178 Q49 188 54 195"
+                stroke="url(#tentG1)"
+                stroke-width="1.3"
                 stroke-linecap="round"
               />
               <path
                 class="tentacle t4"
-                d="M85 95 Q91 115 84 129 Q79 141 85 154"
-                stroke="url(#tentG)"
-                stroke-width="1.7"
+                d="M62 96 Q62 124 63 144 Q63 162 61 180"
+                stroke="url(#tentG2)"
+                stroke-width="1.0"
                 stroke-linecap="round"
-                opacity="0.78"
+                opacity="0.75"
               />
               <path
                 class="tentacle t5"
-                d="M97 91 Q103 110 96 124 Q91 137 97 150"
-                stroke="url(#tentG)"
-                stroke-width="2.2"
+                d="M71 96 Q73 126 72 146 Q71 165 73 183 Q74 192 70 198"
+                stroke="url(#tentG1)"
+                stroke-width="1.4"
+                stroke-linecap="round"
+              />
+              <path
+                class="tentacle t6"
+                d="M80 94 Q85 120 80 140 Q76 158 80 174"
+                stroke="url(#tentG2)"
+                stroke-width="1.0"
+                stroke-linecap="round"
+                opacity="0.8"
+              />
+              <path
+                class="tentacle t7"
+                d="M89 90 Q95 114 90 134 Q86 152 91 170 Q95 182 89 192"
+                stroke="url(#tentG1)"
+                stroke-width="1.3"
                 stroke-linecap="round"
               />
             </g>
-            <defs>
-              <radialGradient id="bellG" cx="50%" cy="32%" r="62%">
-                <stop offset="0%" stop-color="#c09090" stop-opacity="0.28" />
-                <stop offset="50%" stop-color="#82b5aa" stop-opacity="0.2" />
-                <stop offset="100%" stop-color="#629bac" stop-opacity="0.05" />
-              </radialGradient>
-              <radialGradient id="domeG" cx="50%" cy="28%" r="60%">
-                <stop offset="0%" stop-color="white" stop-opacity="0.18" />
-                <stop offset="100%" stop-color="white" stop-opacity="0" />
-              </radialGradient>
-              <linearGradient id="tentG" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#82b5aa" stop-opacity="0.75" />
-                <stop offset="100%" stop-color="#82b5aa" stop-opacity="0.04" />
-              </linearGradient>
-            </defs>
           </svg>
         </div>
       </main>
@@ -737,5 +716,125 @@
         </div>
       </footer>
     </div>
+
+    <script>
+      const canvas = document.getElementById("bg-canvas");
+      const ctx = canvas.getContext("2d");
+      let W,
+        H,
+        t = 0;
+
+      function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      // Wave colours sampled from the LinkedIn cover image:
+      // muted sage-green and muted slate-blue, both desaturated and soft
+      const layers = [
+        {
+          amp: 32,
+          freq: 0.0022,
+          speed: 0.14,
+          yBase: 0.64,
+          r: 148,
+          g: 178,
+          b: 168,
+          a: 0.18,
+          lw: 1.4,
+        }, // sage-green, back
+        {
+          amp: 26,
+          freq: 0.003,
+          speed: 0.1,
+          yBase: 0.72,
+          r: 110,
+          g: 148,
+          b: 172,
+          a: 0.2,
+          lw: 1.1,
+        }, // slate-blue
+        {
+          amp: 20,
+          freq: 0.0038,
+          speed: 0.17,
+          yBase: 0.79,
+          r: 130,
+          g: 168,
+          b: 155,
+          a: 0.24,
+          lw: 1.0,
+        }, // sage-green, mid
+        {
+          amp: 16,
+          freq: 0.0048,
+          speed: 0.12,
+          yBase: 0.86,
+          r: 90,
+          g: 132,
+          b: 162,
+          a: 0.28,
+          lw: 0.8,
+        }, // slate-blue
+        {
+          amp: 12,
+          freq: 0.0058,
+          speed: 0.19,
+          yBase: 0.92,
+          r: 120,
+          g: 160,
+          b: 148,
+          a: 0.32,
+          lw: 0.7,
+        }, // sage-green, front
+      ];
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        layers.forEach((l) => {
+          const yMid = H * l.yBase;
+
+          // Filled area below wave, fading from transparent at crest to colour at bottom
+          ctx.beginPath();
+          ctx.moveTo(0, H);
+          for (let x = 0; x <= W; x += 4) {
+            const y =
+              yMid +
+              Math.sin(x * l.freq + t * l.speed) * l.amp +
+              Math.sin(x * l.freq * 1.8 + t * l.speed * 0.55) * l.amp * 0.38;
+            ctx.lineTo(x, y);
+          }
+          ctx.lineTo(W, H);
+          ctx.closePath();
+
+          const grad = ctx.createLinearGradient(0, yMid - l.amp * 2, 0, H);
+          grad.addColorStop(0, `rgba(${l.r},${l.g},${l.b},0)`);
+          grad.addColorStop(1, `rgba(${l.r},${l.g},${l.b},${l.a})`);
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          // Soft line along the crest
+          ctx.beginPath();
+          for (let x = 0; x <= W; x += 4) {
+            const y =
+              yMid +
+              Math.sin(x * l.freq + t * l.speed) * l.amp +
+              Math.sin(x * l.freq * 1.8 + t * l.speed * 0.55) * l.amp * 0.38;
+            x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = `rgba(${l.r},${l.g},${l.b},${l.a * 1.5})`;
+          ctx.lineWidth = l.lw;
+          ctx.stroke();
+        });
+
+        t += 0.012;
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    </script>
   </body>
 </html>
