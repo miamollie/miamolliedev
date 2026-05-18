@@ -131,28 +131,8 @@ function drawSun() {
 
 function drawConstellation(t) {
   // Get configuration from global scope if available
-  const config = window.animationConfig || { nodes: [], edges: [] };
+  const config = window.animationConfig || { nodes: [] };
   const nodes = config.nodes || [];
-  const edges = config.edges || [];
-
-  // Draw edges first (behind nodes)
-  edges.forEach(([ai, bi, col]) => {
-    const a = nodes[ai];
-    const b = nodes[bi];
-    if (!a || !b) return;
-    const ax = a.px * W;
-    const ay = a.py * H;
-    const bx = b.px * W;
-    const by = b.py * H;
-    const alpha = 0.3 + Math.sin(t * 0.4 + ai * 0.7) * 0.08;
-    ctx.beginPath();
-    ctx.moveTo(ax, ay);
-    ctx.lineTo(bx, by);
-    ctx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${alpha})`;
-    ctx.lineWidth = 1.4;
-    ctx.setLineDash([]);
-    ctx.stroke();
-  });
 
   // Draw nodes
   nodes.forEach((n, i) => {
