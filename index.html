@@ -4,165 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@miamollie</title>
+    <meta
+      name="description"
+      content="Mia de Búrca — Irish software engineer based in Melbourne. Building things people love, growing people who love to build."
+    />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="shared.css" />
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --bg: #0b1120;
-        --teal: #82b5aa;
-        --blue: #629bac;
-        --teal-deep: #3a6860;
-        --mauve: #c09090;
-        --mauve-dim: #9a6e6e;
-        --pearl: #eef3f8;
-        --muted: #506060;
-        --muted-lt: #6d95a1;
-      }
-
-      html,
-      body {
-        height: 100%;
-        overflow: hidden;
-      }
-
-      body {
-        background: var(--bg);
-        color: var(--pearl);
-        font-family: "DM Sans", sans-serif;
-        font-weight: 300;
-      }
-
-      /* ── Grain ── */
-      body::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-        opacity: 0.55;
-      }
-
-      /* ── Ambient blobs ── */
-      .blob {
-        position: fixed;
-        border-radius: 50%;
-        filter: blur(110px);
-        pointer-events: none;
-        z-index: 0;
-      }
-      .blob-mauve {
-        width: 580px;
-        height: 440px;
-        background: rgba(192, 144, 144, 0.1);
-        top: -120px;
-        left: -100px;
-        animation: drift 17s ease-in-out infinite alternate;
-      }
-      .blob-teal {
-        width: 440px;
-        height: 400px;
-        background: rgba(130, 181, 170, 0.09);
-        bottom: -90px;
-        right: -70px;
-        animation: drift 22s ease-in-out infinite alternate-reverse;
-      }
-      @keyframes drift {
-        from {
-          transform: translate(0, 0) scale(1);
-        }
-        to {
-          transform: translate(28px, 20px) scale(1.07);
-        }
-      }
-
-      /* ── Shell ── */
-      .shell {
-        position: relative;
-        z-index: 1;
-        width: 100vw;
-        height: 100vh;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        padding: 0 clamp(1.6rem, 5.5vw, 4.5rem);
-      }
-
-      /* ── Top bar ── */
-      .topbar {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 1.7rem 0 0.8rem;
-        opacity: 0;
-        animation: up 0.7s 0.05s forwards;
-      }
-      .badge {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-family: "DM Mono", monospace;
-        font-size: 0.68rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--mauve);
-        border: 1px solid rgba(192, 144, 144, 0.3);
-        padding: 0.3em 0.85em;
-        border-radius: 999px;
-      }
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--mauve);
-        animation: blink 2.4s ease-in-out infinite;
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.25;
-        }
-      }
-      .say-hi {
-        font-family: "DM Mono", monospace;
-        font-size: 0.72rem;
-        color: var(--muted-lt);
-        text-decoration: none;
-        letter-spacing: 0.07em;
-        transition: color 0.2s;
-      }
-      .say-hi:hover {
-        color: var(--teal);
-      }
-
       /* ── Main ── */
       .main {
         display: grid;
-        grid-template-columns: 1fr 210px;
+        grid-template-columns: 1fr 220px;
         align-items: center;
         gap: 2rem;
       }
-
-      /* Left */
       .left {
         display: flex;
         flex-direction: column;
       }
 
-      /* ── Big Playfair headline ── */
       .handle-wrap {
         opacity: 0;
         animation: up 0.85s 0.2s forwards;
@@ -174,12 +39,7 @@
         letter-spacing: -0.01em;
         line-height: 1;
         white-space: nowrap;
-        color: var(--pearl);
-      }
-      .handle .at {
-        font-style: italic;
-        font-weight: 400;
-        color: var(--mauve);
+        color: var(--ink);
       }
 
       .subtitle {
@@ -190,7 +50,7 @@
       .subtitle p {
         font-size: clamp(0.88rem, 1.3vw, 1.05rem);
         line-height: 1.72;
-        color: var(--muted-lt);
+        color: var(--ink-mid);
         max-width: 500px;
       }
 
@@ -212,25 +72,25 @@
         width: 52px;
         height: 52px;
         border-radius: 50%;
-        border: 1.5px solid rgba(192, 144, 144, 0.32);
-        background: rgba(192, 144, 144, 0.07);
+        border: 1.5px solid rgba(170, 136, 136, 0.35);
+        background: rgba(170, 136, 136, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 0 18px rgba(192, 144, 144, 0.1);
+        box-shadow: 0 2px 14px rgba(170, 136, 136, 0.12);
         overflow: hidden;
       }
       .avatar-ring svg {
         width: 20px;
         height: 20px;
-        color: var(--mauve);
+        color: var(--mauve-ink);
         opacity: 0.7;
       }
       .avatar-ring img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: grayscale(100%) contrast(0.9) brightness(1.05);
+        filter: grayscale(100%) contrast(0.88) brightness(1.05);
       }
       .avatar-meta {
         display: flex;
@@ -240,30 +100,29 @@
       .avatar-name {
         font-family: "DM Mono", monospace;
         font-size: 0.74rem;
-        color: var(--pearl);
+        color: var(--ink);
         letter-spacing: 0.04em;
       }
       .avatar-sub {
         font-family: "DM Mono", monospace;
-        font-size: 0.6rem;
-        color: var(--muted-lt);
+        font-size: 0.68rem;
+        color: var(--ink-lt);
         letter-spacing: 0.09em;
       }
 
       .vsep {
         width: 1px;
         height: 30px;
-        background: rgba(255, 255, 255, 0.07);
+        background: rgba(44, 53, 64, 0.12);
         align-self: center;
       }
 
       .blurb {
         font-size: 0.86rem;
         line-height: 1.76;
-        color: var(--muted-lt);
+        color: var(--ink-mid);
         max-width: 400px;
       }
-
       .blurb p {
         margin-bottom: 0.5rem;
       }
@@ -282,53 +141,42 @@
         letter-spacing: 0.055em;
         padding: 0.3em 0.82em;
         border-radius: 999px;
-        cursor: default;
         transition: all 0.2s;
-        border: 1px solid rgba(130, 181, 170, 0.22);
-        color: var(--blue);
-        background: rgba(130, 181, 170, 0.05);
-      }
-      .chip:hover {
-        background: rgba(130, 181, 170, 0.14);
-        border-color: rgba(130, 181, 170, 0.5);
-        color: var(--teal);
+        border: 1px solid rgba(61, 122, 120, 0.3);
+        color: var(--teal-ink);
+        background: rgba(122, 172, 170, 0.1);
       }
       .chip.m {
-        border-color: rgba(192, 144, 144, 0.22);
-        color: var(--mauve);
-        background: rgba(192, 144, 144, 0.04);
-      }
-      .chip.m:hover {
-        background: rgba(192, 144, 144, 0.13);
-        border-color: rgba(192, 144, 144, 0.5);
-        color: var(--mauve);
+        border-color: rgba(122, 80, 80, 0.25);
+        color: var(--mauve-ink);
+        background: rgba(170, 136, 136, 0.08);
       }
 
-      /* ── Right: Jellyfish ── */
       .right {
         opacity: 0;
         animation: up 0.9s 0.38s forwards;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.65rem;
         position: relative;
       }
+
       .jelly-glow {
         position: absolute;
-        width: 280px;
-        height: 280px;
+        width: 260px;
+        height: 260px;
         border-radius: 50%;
         background: radial-gradient(
           circle,
-          rgba(130, 181, 170, 0.1) 0%,
-          transparent 70%
+          rgba(122, 172, 170, 0.12) 0%,
+          transparent 68%
         );
         top: 50%;
         left: 50%;
         transform: translate(-50%, -54%);
         pointer-events: none;
-        animation: gpulse 4.5s ease-in-out infinite;
+        animation: gpulse 5s ease-in-out infinite;
+        filter: blur(18px);
       }
       @keyframes gpulse {
         0%,
@@ -338,145 +186,108 @@
         }
         50% {
           opacity: 1;
-          transform: translate(-50%, -54%) scale(1.1);
+          transform: translate(-50%, -54%) scale(1.08);
         }
       }
 
       .jelly-svg {
-        width: clamp(130px, 15vw, 195px);
-        filter: drop-shadow(0 0 16px rgba(130, 181, 170, 0.25));
+        width: clamp(130px, 16vw, 210px);
+        filter: drop-shadow(0 8px 24px rgba(122, 172, 170, 0.18))
+          drop-shadow(0 2px 6px rgba(170, 136, 136, 0.1));
       }
 
       .bell {
-        animation: bob 4s ease-in-out infinite;
-        transform-origin: 50% 85%;
+        animation: bob 5s ease-in-out infinite;
+        transform-origin: 50% 50%;
       }
       @keyframes bob {
         0%,
         100% {
-          transform: translateY(0);
+          transform: translateY(0) rotate(0deg);
         }
-        50% {
-          transform: translateY(-8px);
+        40% {
+          transform: translateY(-10px) rotate(0.6deg);
+        }
+        70% {
+          transform: translateY(-6px) rotate(-0.4deg);
         }
       }
 
       .tentacle {
-        animation: wiggle 3.2s ease-in-out infinite;
+        animation: wiggle 3.8s ease-in-out infinite;
         transform-origin: top center;
       }
       .t2 {
-        animation-delay: 0.25s;
+        animation-delay: 0.3s;
       }
       .t3 {
-        animation-delay: 0.5s;
+        animation-delay: 0.6s;
       }
       .t4 {
-        animation-delay: 0.75s;
+        animation-delay: 0.9s;
       }
       .t5 {
-        animation-delay: 1s;
+        animation-delay: 1.2s;
+      }
+      .t6 {
+        animation-delay: 0.45s;
+      }
+      .t7 {
+        animation-delay: 0.75s;
       }
       @keyframes wiggle {
         0%,
         100% {
-          transform: skewX(0deg);
+          transform: skewX(0deg) translateX(0);
         }
-        30% {
-          transform: skewX(5deg);
+        35% {
+          transform: skewX(4deg) translateX(1.5px);
         }
         70% {
-          transform: skewX(-5deg);
+          transform: skewX(-3.5deg) translateX(-1px);
         }
       }
 
       .spot {
-        animation: spotblink 5s ease-in-out infinite;
+        animation: spotblink 6s ease-in-out infinite;
       }
       .spot2 {
-        animation-delay: 1.8s;
+        animation-delay: 2.2s;
       }
       @keyframes spotblink {
         0%,
-        88%,
+        85%,
         100% {
           opacity: 1;
         }
-        93% {
-          opacity: 0.2;
+        92% {
+          opacity: 0.25;
         }
       }
 
-      .jelly-caption {
-        font-family: "DM Mono", monospace;
-        font-size: 0.62rem;
-        color: var(--muted-lt);
-        letter-spacing: 0.12em;
-        text-align: center;
+      .footer-link.work-with-me {
+        color: var(--teal-ink);
+        border: 1px solid rgba(61, 122, 120, 0.4);
+        padding: 0.25em 0.8em;
+        border-radius: 999px;
+        font-weight: 400;
+      }
+      .footer-link.work-with-me:hover {
+        background: rgba(122, 172, 170, 0.12);
+        border-color: rgba(61, 122, 120, 0.7);
+        color: var(--ink);
       }
 
-      /* ── Footer ── */
-      footer {
-        opacity: 0;
-        animation: up 0.8s 0.78s forwards;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.9rem 0 1.6rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .footer-copy {
-        font-family: "DM Mono", monospace;
-        font-size: 0.64rem;
-        color: var(--muted-lt);
-        letter-spacing: 0.07em;
-      }
-      .footer-links {
-        display: flex;
-        gap: 1.4rem;
-      }
-      .footer-link {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-family: "DM Mono", monospace;
-        font-size: 0.72rem;
-        letter-spacing: 0.08em;
-        color: var(--muted-lt);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .footer-link:hover {
-        color: var(--mauve);
-      }
-      .footer-link svg {
-        width: 13px;
-        height: 13px;
-        flex-shrink: 0;
-      }
-
-      @keyframes up {
-        from {
-          opacity: 0;
-          transform: translateY(14px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+      @media (prefers-reduced-motion: reduce) {
+        .bell,
+        .tentacle,
+        .spot,
+        .jelly-glow {
+          animation: none !important;
         }
       }
 
-      /* ── Mobile ── */
       @media (max-width: 680px) {
-        html,
-        body {
-          overflow: auto;
-          height: auto;
-        }
-        .shell {
-          height: auto;
-          padding: 0 1.4rem;
-        }
         .main {
           grid-template-columns: 1fr;
         }
@@ -491,6 +302,22 @@
         .vsep {
           display: none;
         }
+
+        #wave-canvas {
+          display: none;
+        }
+
+        html,
+        body {
+          overflow: auto;
+          height: auto;
+        }
+
+        .shell {
+          height: auto;
+          padding: 0 1.4rem;
+        }
+
         footer {
           flex-direction: column;
           align-items: flex-start;
@@ -500,28 +327,26 @@
     </style>
   </head>
   <body>
-    <div class="blob blob-mauve"></div>
-    <div class="blob blob-teal"></div>
+    <canvas id="wave-canvas"></canvas>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div class="shell">
       <header class="topbar">
-        <a href="mailto:miamollie+websitecontact@gmail.com" class="say-hi"
-          >say hello →</a
-        >
+        <a href="contact.html" class="footer-link work-with-me">work with me</a>
+        <a href="contact.html" class="say-hi">say hello →</a>
       </header>
 
-      <main class="main">
+      <main class="main" id="main-content">
         <div class="left">
           <div class="handle-wrap">
             <div class="handle"><span class="at">@</span>miamollie</div>
           </div>
-
           <div class="subtitle">
             <p>
               Building things people love, growing people who love to build.
             </p>
           </div>
-
           <div class="meta-row">
             <div class="avatar-block">
               <div class="avatar-ring">
@@ -542,18 +367,18 @@
                 unexpectedly transformed into a career in programming.
               </p>
               <p>
-                Mia's passion lies in creating empathetic and empowering
-                workplaces, bringing a fun twist to technical writing, and
-                crafting software solutions with real users in mind.
+                Mia is passionate about building thoughtful, user-centered
+                software and creating empathetic engineering cultures where
+                people can learn, grow, and do meaningful work together.
               </p>
-
               <p>
-                Recently, Mia has been delving into sustainable software
-                practices.
+                Recently, she has been exploring sustainable software and the
+                environmental impact of modern systems, with a growing interest
+                in how thoughtful engineering practices can shape a more
+                responsible future for AI and technology.
               </p>
             </div>
           </div>
-
           <div class="chips-row">
             <span class="chip">TypeScript</span>
             <span class="chip">React</span>
@@ -565,140 +390,236 @@
           </div>
         </div>
 
-        <!-- Jellyfish -->
+        <!-- Watercolour jellyfish -->
         <div class="right">
           <div class="jelly-glow"></div>
           <svg
             class="jelly-svg"
-            viewBox="0 0 140 170"
+            viewBox="0 0 130 200"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
           >
+            <defs>
+              <!-- Bell: cool blue-grey watercolour wash -->
+              <radialGradient id="bellG" cx="46%" cy="28%" r="64%">
+                <stop offset="0%" stop-color="#cdd8e0" stop-opacity="0.92" />
+                <stop offset="40%" stop-color="#a8c0cc" stop-opacity="0.72" />
+                <stop offset="80%" stop-color="#88aab8" stop-opacity="0.45" />
+                <stop offset="100%" stop-color="#6a96a8" stop-opacity="0.18" />
+              </radialGradient>
+              <!-- Inner dome highlight: white wash -->
+              <radialGradient id="domeG" cx="40%" cy="22%" r="54%">
+                <stop offset="0%" stop-color="white" stop-opacity="0.62" />
+                <stop offset="60%" stop-color="white" stop-opacity="0.12" />
+                <stop offset="100%" stop-color="white" stop-opacity="0" />
+              </radialGradient>
+              <!-- Blush: warm mauve at base of bell -->
+              <radialGradient id="blushG" cx="50%" cy="88%" r="55%">
+                <stop offset="0%" stop-color="#c8a0a0" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="#c8a0a0" stop-opacity="0" />
+              </radialGradient>
+              <!-- Sage tint lower bell -->
+              <radialGradient id="sageG" cx="50%" cy="100%" r="50%">
+                <stop offset="0%" stop-color="#8aaa9a" stop-opacity="0.20" />
+                <stop offset="100%" stop-color="#8aaa9a" stop-opacity="0" />
+              </radialGradient>
+              <!-- Tentacle: teal fading to transparent -->
+              <linearGradient id="tentG" x1="0%" y1="0%" x2="5%" y2="100%">
+                <stop offset="0%" stop-color="#7aacaa" stop-opacity="0.58" />
+                <stop offset="55%" stop-color="#88aaaa" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="#8aaa9a" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="tentG2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#9ab8c0" stop-opacity="0.44" />
+                <stop offset="100%" stop-color="#9ab8c0" stop-opacity="0" />
+              </linearGradient>
+              <!-- Watercolour edge blur filter -->
+              <filter id="wcBlur" x="-8%" y="-8%" width="116%" height="116%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.04 0.06"
+                  numOctaves="3"
+                  seed="5"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="3"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                  result="displaced"
+                />
+                <feGaussianBlur in="displaced" stdDeviation="0.8" />
+              </filter>
+              <!-- Softer blur for tentacles -->
+              <filter id="tentBlur">
+                <feGaussianBlur stdDeviation="0.6" />
+              </filter>
+            </defs>
+
+            <!-- Soft under-shadow -->
             <ellipse
-              cx="70"
-              cy="83"
-              rx="44"
-              ry="9"
-              fill="rgba(130,181,170,0.06)"
+              cx="65"
+              cy="96"
+              rx="36"
+              ry="7"
+              fill="rgba(122,172,170,0.08)"
+              filter="url(#wcBlur)"
             />
+
+            <!-- Bell group — all animated together -->
             <g class="bell">
+              <!-- Bell body with watercolour displacement -->
               <path
-                d="M26 72 Q26 28 70 22 Q114 28 114 72 Q114 95 70 99 Q26 95 26 72Z"
+                filter="url(#wcBlur)"
+                d="M20 70 Q20 24 65 17 Q110 24 110 70 Q110 96 65 100 Q20 96 20 70Z"
                 fill="url(#bellG)"
-                stroke="rgba(130,181,170,0.3)"
-                stroke-width="1.2"
               />
+
+              <!-- Blush overlay -->
               <path
-                d="M40 64 Q40 36 70 30 Q100 36 100 64 Q100 79 70 81 Q40 79 40 64Z"
-                fill="url(#domeG)"
-                opacity="0.4"
+                filter="url(#wcBlur)"
+                d="M20 70 Q20 96 65 100 Q110 96 110 70 Q88 88 65 90 Q42 88 20 70Z"
+                fill="url(#blushG)"
               />
-              <!-- mauve cheek blushes -->
+
+              <!-- Sage tint overlay -->
+              <path
+                filter="url(#wcBlur)"
+                d="M20 70 Q20 96 65 100 Q110 96 110 70 Q88 88 65 90 Q42 88 20 70Z"
+                fill="url(#sageG)"
+              />
+
+              <!-- Inner dome highlight — the "wet" look -->
+              <path
+                filter="url(#wcBlur)"
+                d="M36 60 Q36 28 65 22 Q94 28 94 60 Q94 78 65 80 Q36 78 36 60Z"
+                fill="url(#domeG)"
+              />
+
+              <!-- Very soft rim — irregular like a painted edge -->
+              <path
+                filter="url(#wcBlur)"
+                d="M20 70 Q20 24 65 17 Q110 24 110 70 Q110 96 65 100 Q20 96 20 70Z"
+                stroke="rgba(100,150,170,0.18)"
+                stroke-width="1.2"
+                fill="none"
+              />
+
+              <!-- Cheek blushes -->
               <ellipse
                 class="spot"
-                cx="50"
-                cy="71"
-                rx="7.5"
-                ry="5.5"
-                fill="rgba(192,144,144,0.32)"
+                cx="42"
+                cy="70"
+                rx="9"
+                ry="6.5"
+                fill="rgba(200,155,148,0.28)"
+                filter="url(#wcBlur)"
               />
               <ellipse
                 class="spot spot2"
-                cx="90"
-                cy="71"
-                rx="7.5"
-                ry="5.5"
-                fill="rgba(192,144,144,0.32)"
+                cx="88"
+                cy="70"
+                rx="9"
+                ry="6.5"
+                fill="rgba(200,155,148,0.28)"
+                filter="url(#wcBlur)"
               />
-              <!-- eyes -->
+
+              <!-- Eyes -->
               <ellipse
-                cx="59"
-                cy="59"
+                cx="53"
+                cy="57"
                 rx="4.5"
                 ry="5"
-                fill="rgba(8,14,28,0.75)"
+                fill="rgba(28,40,55,0.72)"
               />
               <ellipse
-                cx="81"
-                cy="59"
+                cx="77"
+                cy="57"
                 rx="4.5"
                 ry="5"
-                fill="rgba(8,14,28,0.75)"
+                fill="rgba(28,40,55,0.72)"
               />
-              <circle cx="60.8" cy="57" r="1.6" fill="white" opacity="0.9" />
-              <circle cx="82.8" cy="57" r="1.6" fill="white" opacity="0.9" />
-              <!-- smile -->
+              <circle cx="54.8" cy="55" r="1.6" fill="white" opacity="0.88" />
+              <circle cx="78.8" cy="55" r="1.6" fill="white" opacity="0.88" />
+
+              <!-- Smile -->
               <path
-                d="M63 67.5 Q70 73.5 77 67.5"
-                stroke="rgba(8,14,28,0.5)"
-                stroke-width="1.8"
+                d="M57 65 Q65 71 73 65"
+                stroke="rgba(28,40,55,0.40)"
+                stroke-width="1.7"
                 stroke-linecap="round"
                 fill="none"
               />
-              <!-- hem ruffle in teal -->
+
+              <!-- Hem ruffle — painted edge, sage-teal -->
               <path
-                d="M26 72 Q35 85 44 78 Q53 85 62 78 Q70 85 70 78 Q70 85 78 78 Q87 85 96 78 Q105 85 114 72"
-                stroke="rgba(130,181,170,0.45)"
-                stroke-width="1.3"
+                filter="url(#wcBlur)"
+                d="M20 70 Q30 86 40 78 Q50 86 60 78 Q65 86 65 78 Q65 86 70 78 Q80 86 90 78 Q100 86 110 70"
+                stroke="rgba(122,172,160,0.38)"
+                stroke-width="1.4"
                 fill="none"
                 stroke-linecap="round"
               />
+
+              <!-- Long wispy tentacles — 7, varying lengths, filtered -->
+              <g filter="url(#tentBlur)">
+                <path
+                  class="tentacle"
+                  d="M30 92 Q22 114 28 132 Q33 148 26 165 Q22 178 29 192"
+                  stroke="url(#tentG)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  class="tentacle t2"
+                  d="M41 96 Q34 120 40 138 Q45 154 38 170"
+                  stroke="url(#tentG2)"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                  opacity="0.82"
+                />
+                <path
+                  class="tentacle t3"
+                  d="M52 99 Q46 124 52 142 Q56 158 50 175 Q47 186 53 196"
+                  stroke="url(#tentG)"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                />
+                <path
+                  class="tentacle t4"
+                  d="M63 100 Q62 126 64 145 Q64 162 62 178"
+                  stroke="url(#tentG2)"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                  opacity="0.76"
+                />
+                <path
+                  class="tentacle t5"
+                  d="M75 100 Q77 128 75 147 Q73 164 76 180 Q77 190 73 198"
+                  stroke="url(#tentG)"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                />
+                <path
+                  class="tentacle t6"
+                  d="M86 97 Q92 122 86 140 Q81 156 86 172"
+                  stroke="url(#tentG2)"
+                  stroke-width="1.1"
+                  stroke-linecap="round"
+                  opacity="0.80"
+                />
+                <path
+                  class="tentacle t7"
+                  d="M97 92 Q104 114 98 132 Q93 150 98 167 Q102 180 96 192"
+                  stroke="url(#tentG)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </g>
             </g>
-            <!-- tentacles -->
-            <g class="bell">
-              <path
-                class="tentacle"
-                d="M43 91 Q37 110 44 124 Q49 137 43 150"
-                stroke="url(#tentG)"
-                stroke-width="2.2"
-                stroke-linecap="round"
-              />
-              <path
-                class="tentacle t2"
-                d="M55 95 Q49 115 56 129 Q61 141 55 154"
-                stroke="url(#tentG)"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                opacity="0.78"
-              />
-              <path
-                class="tentacle t3"
-                d="M70 97 Q70 117 70 131 Q69 143 68 157"
-                stroke="url(#tentG)"
-                stroke-width="2.2"
-                stroke-linecap="round"
-              />
-              <path
-                class="tentacle t4"
-                d="M85 95 Q91 115 84 129 Q79 141 85 154"
-                stroke="url(#tentG)"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                opacity="0.78"
-              />
-              <path
-                class="tentacle t5"
-                d="M97 91 Q103 110 96 124 Q91 137 97 150"
-                stroke="url(#tentG)"
-                stroke-width="2.2"
-                stroke-linecap="round"
-              />
-            </g>
-            <defs>
-              <radialGradient id="bellG" cx="50%" cy="32%" r="62%">
-                <stop offset="0%" stop-color="#c09090" stop-opacity="0.28" />
-                <stop offset="50%" stop-color="#82b5aa" stop-opacity="0.2" />
-                <stop offset="100%" stop-color="#629bac" stop-opacity="0.05" />
-              </radialGradient>
-              <radialGradient id="domeG" cx="50%" cy="28%" r="60%">
-                <stop offset="0%" stop-color="white" stop-opacity="0.18" />
-                <stop offset="100%" stop-color="white" stop-opacity="0" />
-              </radialGradient>
-              <linearGradient id="tentG" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#82b5aa" stop-opacity="0.75" />
-                <stop offset="100%" stop-color="#82b5aa" stop-opacity="0.04" />
-              </linearGradient>
-            </defs>
           </svg>
         </div>
       </main>
@@ -708,6 +629,19 @@
           >© 2026 Mia de Búrca — writing, mentoring, building.</span
         >
         <div class="footer-links">
+          <a
+            href="https://calendly.com/miamolliedev/"
+            class="footer-link"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 18H5V9h14v12zm0-14H5V5h14v2zM9 13H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"
+              />
+            </svg>
+            Calendly
+          </a>
           <a
             href="https://medium.com/@miamolliedev"
             class="footer-link"
@@ -722,7 +656,7 @@
             Medium
           </a>
           <a
-            href="https://linkedin.com/in/miamolliedev"
+            href="https://linkedin.com/in/miamollie"
             class="footer-link"
             target="_blank"
             rel="noopener"
@@ -737,5 +671,120 @@
         </div>
       </footer>
     </div>
+
+    <script>
+      // Animation configuration for index.html
+      window.animationConfig = {
+        nodes: [
+          {
+            px: 0.72,
+            py: 0.1,
+            r: 5.5,
+            col: [148, 185, 178],
+            hollow: false,
+            phase: 0.0,
+          },
+          {
+            px: 0.78,
+            py: 0.22,
+            r: 7.0,
+            col: [122, 162, 168],
+            hollow: false,
+            phase: 1.1,
+          },
+          {
+            px: 0.84,
+            py: 0.14,
+            r: 4.0,
+            col: [138, 175, 165],
+            hollow: false,
+            phase: 2.2,
+          },
+          {
+            px: 0.68,
+            py: 0.18,
+            r: 3.5,
+            col: [148, 185, 178],
+            hollow: false,
+            phase: 0.7,
+          },
+          {
+            px: 0.76,
+            py: 0.36,
+            r: 5.0,
+            col: [192, 158, 80],
+            hollow: false,
+            phase: 1.8,
+          },
+          {
+            px: 0.88,
+            py: 0.28,
+            r: 3.5,
+            col: [192, 158, 80],
+            hollow: false,
+            phase: 0.4,
+          },
+          {
+            px: 0.65,
+            py: 0.32,
+            r: 4.5,
+            col: [192, 158, 80],
+            hollow: false,
+            phase: 2.6,
+          },
+          {
+            px: 0.92,
+            py: 0.16,
+            r: 3.0,
+            col: [180, 148, 138],
+            hollow: false,
+            phase: 1.4,
+          },
+          {
+            px: 0.7,
+            py: 0.4,
+            r: 2.8,
+            col: [180, 148, 138],
+            hollow: false,
+            phase: 3.0,
+          },
+          {
+            px: 0.6,
+            py: 0.1,
+            r: 9,
+            col: [122, 162, 168],
+            hollow: true,
+            phase: 0.5,
+          },
+          {
+            px: 0.86,
+            py: 0.4,
+            r: 6,
+            col: [192, 158, 80],
+            hollow: true,
+            phase: 1.9,
+          },
+          {
+            px: 0.95,
+            py: 0.08,
+            r: 4.5,
+            col: [180, 148, 138],
+            hollow: true,
+            phase: 2.8,
+          },
+        ],
+        accentDots: [
+          { px: 0.25, py: 0.3, r: 1.8, col: [192, 158, 80] },
+          { px: 0.47, py: 0.1, r: 1.5, col: [148, 185, 178] },
+          { px: 0.57, py: 0.42, r: 1.6, col: [138, 175, 165] },
+          { px: 0.2, py: 0.42, r: 1.4, col: [192, 158, 80] },
+          { px: 0.62, py: 0.32, r: 1.5, col: [122, 162, 168] },
+          { px: 0.3, py: 0.48, r: 1.3, col: [180, 148, 138] },
+          { px: 0.4, py: 0.08, r: 1.4, col: [192, 158, 80] },
+          { px: 0.66, py: 0.4, r: 1.2, col: [138, 175, 165] },
+        ],
+      };
+    </script>
+    <script src="wave-animation.js"></script>
   </body>
 </html>
