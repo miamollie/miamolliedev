@@ -187,7 +187,8 @@
 
         html,
         body {
-          overflow: auto;
+          overflow-y: auto;
+          overflow-x: hidden;
           height: auto;
         }
 
@@ -199,12 +200,6 @@
         .main {
           grid-template-columns: 1fr;
           gap: 2rem;
-        }
-
-        footer {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.8rem;
         }
       }
     </style>
